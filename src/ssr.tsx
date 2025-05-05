@@ -2,12 +2,17 @@
 import {
   createStartHandler,
   defaultStreamHandler,
-} from '@tanstack/react-start/server'
-import { getRouterManifest } from '@tanstack/react-start/router-manifest'
+  getHeaders,
+} from '@tanstack/react-start/server';
+import { getRouterManifest } from '@tanstack/react-start/router-manifest';
 
-import { createRouter } from './router'
+import { createRouter } from './router';
 
 export default createStartHandler({
-  createRouter,
+  createRouter: () => {
+    const headers = getHeaders();
+    console.log('_______________________ headers', headers);
+    return createRouter();
+  },
   getRouterManifest,
-})(defaultStreamHandler)
+})(defaultStreamHandler);
